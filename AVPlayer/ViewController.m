@@ -38,7 +38,7 @@
     self.totalTimeLabel.text = [NSString stringWithFormat:@"%02zd:%02zd",(int)[SXAVPlayer shareInstance].duration / 60,(int)[SXAVPlayer shareInstance].duration % 60];}
 
 - (IBAction)play:(id)sender {
-    NSURL *url = [NSURL URLWithString:@"http://audio.xmcdn.com/group22/M0B/60/85/wKgJM1g1g0ShoPalAJiI5nj3-yY200.m4a"];
+    NSURL *url = [NSURL URLWithString:@"http://audio.xmcdn.com/group23/M06/5C/70/wKgJL1g0DVahoMhrAMJMkvfN17c025.m4a"];
 
     SXAVPlayer *player = [SXAVPlayer shareInstance];
     [player playWithUrl:url];

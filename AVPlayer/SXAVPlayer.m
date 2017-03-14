@@ -67,6 +67,19 @@ static SXAVPlayer *instance;
 - (void)playWithUrl:(NSURL *)url{
     
     if ([self.url isEqual:url]) {
+        if (self.state == SXAudioPlayerStateLoading) {
+            return;
+        }
+        if (self.state == SXAudioPlayerStatePlaying) {
+            return;
+        }
+        if (self.state == SXAudioPlayerStateStoped) {
+            return;
+        }
+        if (self.state == SXAudioPlayerStatePause) {
+            [self resume];
+            return;
+        }
         return;
     }
     
@@ -87,16 +100,19 @@ static SXAVPlayer *instance;
     [self.player pause];
     [self clearObserver];
     self.player = nil;
+    self.state = SXAudioPlayerStateStoped;
 }
 
 - (void)pause{
     [self.player pause];
+    self.state = SXAudioPlayerStatePause;
+
 
 }
 
 - (void)resume{
     [self.player play];
-
+    self.state = SXAudioPlayerStatePlaying;
 }
 
 - (void)seekWithTimeInterval:(NSTimeInterval)timeInterval {
@@ -162,7 +178,7 @@ static SXAVPlayer *instance;
             case AVPlayerItemStatusUnknown:
             {
                 NSLog(@"资源无效");
-
+                self.state = SXAudioPlayerStateFailed;
 
                 break;
             }
@@ -170,11 +186,13 @@ static SXAVPlayer *instance;
             {
                 NSLog(@"资源准备好了, 已经可以播放");
                 [self.player play];
+                self.state = SXAudioPlayerStatePlaying;
                 break;
             }
             case AVPlayerItemStatusFailed:
             {
                 NSLog(@"资源加载失败");
+                self.state = SXAudioPlayerStateFailed;
                 break;
             }
                 

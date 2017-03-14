@@ -8,6 +8,16 @@
 #import <UIKit/UIKit.h>
 #import <Foundation/Foundation.h>
 
+
+typedef NS_ENUM(NSUInteger, SXAudioPlayerState) {
+    SXAudioPlayerStateUnknown,
+    SXAudioPlayerStateLoading,
+    SXAudioPlayerStatePlaying,
+    SXAudioPlayerStateStoped,
+    SXAudioPlayerStatePause,
+    SXAudioPlayerStateFailed
+};
+
 @interface SXAVPlayer : NSObject
 @property (nonatomic,assign,readonly) NSTimeInterval duration;
 @property (nonatomic,assign,readonly) NSTimeInterval currentTime;
@@ -15,6 +25,7 @@
 @property (nonatomic,assign,readonly) CGFloat progress;
 @property (nonatomic,assign,readonly) CGFloat loadprogress;
 
+@property (nonatomic,assign) SXAudioPlayerState state;
 
 
 + (instancetype)shareInstance;
